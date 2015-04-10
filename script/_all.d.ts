@@ -8,3 +8,5 @@
 /// <reference path='services/TodoStorage.ts' />
 /// <reference path='controllers/TodoCtrl.ts' />
 /// <reference path='Application.ts' />
+
+declare function require(moduleId:string): any;

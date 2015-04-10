@@ -3,6 +3,8 @@
 module todos {
 	'use strict';
 
+	var TodoStorage = require('exports?todos!../services/TodoStorage').TodoStorage;
+	var TodoItem = require('exports?todos!../models/TodoItem').TodoItem;
 	/**
 	 * The main controller for the app. The controller:
 	 * - retrieves and persists the model via the todoStorage service
@@ -12,24 +14,13 @@ module todos {
 
 		private todos: TodoItem[];
 
-		// $inject annotation.
-		// It provides $injector with information about dependencies to be injected into constructor
-		// it is better to have it close to the constructor, because the parameters must match in count and type.
-		// See http://docs.angularjs.org/guide/di
-		public static $inject = [
-			'$scope',
-			'$location',
-			'todoStorage',
-			'filterFilter'
-		];
-
 		// dependencies are injected via AngularJS $injector
 		// controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
 		constructor(
 			private $scope: ITodoScope,
 			private $location: ng.ILocationService,
 			private todoStorage: ITodoStorage,
-			private filterFilter
+			private $filter: ng.IFilterService
 		) {
 			this.todos = $scope.todos = todoStorage.get();
 
@@ -56,7 +47,7 @@ module todos {
 		}
 
 		onTodos() {
-			this.$scope.remainingCount = this.filterFilter(this.todos, { completed: false }).length;
+			this.$scope.remainingCount = this.$filter('filter')(this.todos, { completed: false }).length;
 			this.$scope.doneCount = this.todos.length - this.$scope.remainingCount;
 			this.$scope.allChecked = !this.$scope.remainingCount
 			this.todoStorage.put(this.todos);
