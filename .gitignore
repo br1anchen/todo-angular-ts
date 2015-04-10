@@ -1,0 +1,13 @@
+*.suo
+*.user
+/bin
+/obj
+
+node_modules/*
+
+typings/*
+
+*.js.map
+
+script/**/*.js
+script/**/*.js.map
