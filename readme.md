@@ -45,7 +45,7 @@ A standalone TypeScript compiler is available on NPM.
 
 To compile the TypeScript in this project:
 
-	#using gulp task
+	#using gulp tsc task
 	gulp ts
 
 	#build webpack process
