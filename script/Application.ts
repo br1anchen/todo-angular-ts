@@ -10,13 +10,13 @@ require('todomvc-app-css/index.css');
 require('../node_modules/todomvc-common/base.css');
 require("angular");
 
-module todos {
-    'use strict';
 
-    var TodoCtrl = require('exports?todos!./controllers/TodoCtrl').TodoCtrl;
-    var TodoBlur = require('exports?todos!./directives/TodoBlur').TodoBlur;
-    var TodoFocus = require('exports?todos!./directives/TodoFocus').TodoFocus;
-    var TodoStorage = require('exports?todos!./services/TodoStorage').TodoStorage;
+import TodoCtrl = require('./controllers/TodoCtrl');
+import TodoBlur = require('./directives/TodoBlur');
+import TodoFocus = require('./directives/TodoFocus');
+import TodoStorage = require('./services/TodoStorage');
+
+    'use strict';
 
     var todomvc = angular.module('todomvc', []);
 
@@ -25,10 +25,10 @@ module todos {
     });
 
     todomvc.controller('todoCtrl', (
-			$scope: ITodoScope,
-			$location: ng.ILocationService,
-			todoStorage: ITodoStorage,
-			$filter: ng.IFilterService
+			$scope,
+			$location,
+			todoStorage,
+			$filter
 		)=>{
       return new TodoCtrl($scope,
         $location,
@@ -43,4 +43,3 @@ module todos {
     todomvc.directive('todoFocus', ($timeout)=>{
       return new TodoFocus($timeout);
     })
-}

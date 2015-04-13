@@ -1,14 +1,15 @@
 /// <reference path='../_all.d.ts' />
 
-module todos {
-    'use strict';
 
-    var TodoItem = require('exports?todos!../models/TodoItem').TodoItem;
+  import TodoItem = require('../models/TodoItem');
+  import ITodoStorage = require('../interfaces/ITodoStorage');
+
+    'use strict';
 
     /**
      * Services that persists and retrieves TODOs from localStorage.
      */
-    export class TodoStorage implements ITodoStorage {
+    class TodoStorage implements ITodoStorage {
 
         STORAGE_ID = 'todos-angularjs-typescript';
 
@@ -24,4 +25,5 @@ module todos {
             localStorage.setItem(this.STORAGE_ID, JSON.stringify(todos));
         }
     }
-}
+
+    export = TodoStorage;

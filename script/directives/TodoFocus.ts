@@ -1,12 +1,11 @@
 /// <reference path='../_all.d.ts' />
 
-module todos {
 	'use strict';
 
 	/**
 	 * Directive that places focus on the element it is applied to when the expression it binds to evaluates to true.
 	 */
-	export class TodoFocus implements ng.IDirective{
+	class TodoFocus implements ng.IDirective{
 		public restrict:string;
 		public link:($scope: ng.IScope, element: JQuery, attributes: any) => void;
 
@@ -22,4 +21,4 @@ module todos {
     }
   }
 
-}
+	export = TodoFocus;

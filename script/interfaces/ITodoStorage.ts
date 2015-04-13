@@ -1,10 +1,10 @@
 /// <reference path='../_all.d.ts' />
 
-module todos {
-	var TodoItem = require('exports?todos!../models/TodoItem').TodoItem;
+import TodoItem = require('../models/TodoItem');
 
-	export interface ITodoStorage {
+	interface ITodoStorage {
 		get (): TodoItem[];
 		put(todos: TodoItem[]);
 	}
-}
+
+	export = ITodoStorage;

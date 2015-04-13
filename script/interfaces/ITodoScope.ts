@@ -1,11 +1,9 @@
 /// <reference path='../_all.d.ts' />
 
-module todos {
+import TodoItem = require('../models/TodoItem');
+import TodoCtrl = require('../controllers/TodoCtrl');
 
-	var TodoItem = require('exports?todos!../models/TodoItem').TodoItem;
-	var TodoCtrl = require('exports?todos!../controllers/TodoCtrl').TodoCtrl;
-
-	export interface ITodoScope extends ng.IScope {
+	interface ITodoScope extends ng.IScope {
 		todos: TodoItem[];
 		newTodo: string;
 		editedTodo: TodoItem;
@@ -16,4 +14,5 @@ module todos {
 		location: ng.ILocationService;
 		vm: TodoCtrl;
 	}
-}
+
+	export = ITodoScope;

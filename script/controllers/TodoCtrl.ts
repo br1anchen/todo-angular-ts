@@ -1,16 +1,17 @@
 /// <reference path='../_all.d.ts' />
 
-module todos {
+import ITodoScope = require('../interfaces/ITodoScope');
+import ITodoStorage = require('../interfaces/ITodoStorage');
+import TodoItem = require('../models/TodoItem');
+
 	'use strict';
 
-	var TodoStorage = require('exports?todos!../services/TodoStorage').TodoStorage;
-	var TodoItem = require('exports?todos!../models/TodoItem').TodoItem;
 	/**
 	 * The main controller for the app. The controller:
 	 * - retrieves and persists the model via the todoStorage service
 	 * - exposes the model to the template and provides event handlers
 	 */
-	export class TodoCtrl {
+	class TodoCtrl {
 
 		private todos: TodoItem[];
 
@@ -88,4 +89,4 @@ module todos {
 		}
 	}
 
-}
+export = TodoCtrl;
