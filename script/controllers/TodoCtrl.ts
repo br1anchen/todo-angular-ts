@@ -3,6 +3,7 @@
 import ITodoScope = require('../interfaces/ITodoScope');
 import ITodoStorage = require('../interfaces/ITodoStorage');
 import TodoItem = require('../models/TodoItem');
+import TodoStorage = require('../services/TodoStorage');
 
 	'use strict';
 
@@ -17,8 +18,18 @@ import TodoItem = require('../models/TodoItem');
 
 		private todos: TodoItem[];
 
+		// $inject annotation.
+		// It provides $injector with information about dependencies to be injected into constructor
+		// it is better to have it close to the constructor, because the parameters must match in count and type.
+		// See http://docs.angularjs.org/guide/di
+		public static $inject = [
+			'$scope',
+			'$location',
+			TodoStorage.SELECTOR,
+			'$filter'
+		];
+
 		// dependencies are injected via AngularJS $injector
-		// controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
 		constructor(
 			private $scope: ITodoScope,
 			private $location: ng.ILocationService,
@@ -94,21 +105,6 @@ import TodoItem = require('../models/TodoItem');
 	angular.module(TodoCtrl.MODULE_ID, [
 		require('../services/TodoStorage').MODULE_ID
 		])
-	.controller(TodoCtrl.SELECTOR, [
-		'$scope',
-		'$location',
-		require('../services/TodoStorage').SELECTOR,
-		'$filter'
-		,(
-		$scope,
-		$location,
-		todoStorage,
-		$filter)=>{
-		return new TodoCtrl(
-			$scope,
-			$location,
-			todoStorage,
-			$filter);
-	}]);
+	.controller(TodoCtrl.SELECTOR, TodoCtrl);
 
 export = TodoCtrl;

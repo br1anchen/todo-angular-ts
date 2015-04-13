@@ -27,7 +27,7 @@
 	angular.module(TodoFocus.MODULE_ID, [
 
 		])
-	.directive(TodoFocus.SELECTOR, ($timeout)=>{
+	.directive(TodoFocus.SELECTOR,($timeout)=>{
 		return new TodoFocus($timeout);
 	});
 
