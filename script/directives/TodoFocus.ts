@@ -9,6 +9,9 @@
 		public restrict:string;
 		public link:($scope: ng.IScope, element: JQuery, attributes: any) => void;
 
+		public static MODULE_ID:string = 'todomvc.directives.todoFocus';
+		public static SELECTOR:string = 'todoFocus';
+
     constructor($timeout: ng.ITimeoutService) {
 			this.restrict = 'A';
       this.link = ($scope: ng.IScope, element: JQuery, attributes: any) => {
@@ -20,5 +23,12 @@
 			};
     }
   }
+
+	angular.module(TodoFocus.MODULE_ID, [
+
+		])
+	.directive(TodoFocus.SELECTOR, ($timeout)=>{
+		return new TodoFocus($timeout);
+	});
 
 	export = TodoFocus;

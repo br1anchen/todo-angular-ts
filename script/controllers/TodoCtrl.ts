@@ -12,6 +12,8 @@ import TodoItem = require('../models/TodoItem');
 	 * - exposes the model to the template and provides event handlers
 	 */
 	class TodoCtrl {
+		public static MODULE_ID:string = 'todomvc.controllers.todo';
+		public static SELECTOR:string = 'todoCtrl';
 
 		private todos: TodoItem[];
 
@@ -88,5 +90,25 @@ import TodoItem = require('../models/TodoItem');
 			this.todos.forEach(todoItem => { todoItem.completed = completed; });
 		}
 	}
+
+	angular.module(TodoCtrl.MODULE_ID, [
+		require('../services/TodoStorage').MODULE_ID
+		])
+	.controller(TodoCtrl.SELECTOR, [
+		'$scope',
+		'$location',
+		require('../services/TodoStorage').SELECTOR,
+		'$filter'
+		,(
+		$scope,
+		$location,
+		todoStorage,
+		$filter)=>{
+		return new TodoCtrl(
+			$scope,
+			$location,
+			todoStorage,
+			$filter);
+	}]);
 
 export = TodoCtrl;
