@@ -29,7 +29,8 @@ var webpack_config = {
 
   output: {
      path: __dirname + '/dist',
-     filename: 'bundle.js'
+     filename: 'bundle.js',
+     publicPath: "/dist/"
    },
 
   // Source maps support (or 'inline-source-map' also works)
@@ -82,18 +83,17 @@ gulp.task("copyIndex", function() {
 
 gulp.task("webpack-dev-server", function(callback) {
     // Start a webpack-dev-server
-    var compiler = webpack(webpack_config);
+
+    var devConfig = Object.create(webpack_config);
+    devConfig.devtool = "eval";
+    devConfig.debug = true;
+    var compiler = webpack(devConfig);
 
     new WebpackDevServer(compiler, {
-      contentBase: './dist',
-      quiet: false,
-      noInfo: false,
-      lazy: true,
-      filename: "bundle.js",
-      watchDelay: 300,
-      publicPath: "/assets/",
-      headers: { "X-Custom-Header": "yes" },
-      stats: { colors: true },
+  		publicPath: "/" + devConfig.output.publicPath,
+  		stats: {
+  			colors: true
+  		}
     }).listen(35729, "localhost", function(err) {
         if(err) throw new gutil.PluginError("webpack-dev-server", err);
         // Server listening
@@ -122,4 +122,11 @@ gulp.task('ts', function() {
 
 gulp.task('build', ['ts','webpack','copyIndex'], function(){
 
+});
+
+gulp.task('watch', ['build','webpack-dev-server'], function(){
+  gulp.watch([
+    "script/**/*",
+    "index.html"
+    ], ["build"]);
 });
